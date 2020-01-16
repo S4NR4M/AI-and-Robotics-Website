@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device height, initial-scale=1.0">
+    <title>Artificial Intelligence and Robotics</title>
+    <style type="text/css">
+        *{
+            margin: 0; 
+            padding: 0;
+        }
+        :root {
+            --window-height: 100vh;
+            --window-width: 100vw;
+        }
+        .wrapper {
+            width: 100%;
+        }
+        @font-face {
+            font-family: "Ubuntu";
+            src: url("fonts/Ubuntu/ubuntu-regular-webfont.woff") format("woff");
+            src: url("fonts/Ubuntu/ubuntu-regular-webfont.woff2") format("woff2");
+        }
+        @font-face {
+            font-family: "Roboto";
+            src: url("fonts/Roboto/roboto-regular.woff") format("woff");
+            src: url("fonts/Roboto/roboto-regular.woff2") format("woff2");
+        }
+        @font-face {
+            font-family: "Bebas Neue";
+            src: url("fonts/Bebas Neue/BebasNeue-Regular.woff") format("woff");
+            src: url("fonts/Bebas Neue/BebasNeue-Regular.woff2") format("woff2");
+        }
+        .container{
+            margin: 0;
+            background-color: #ffffff;
+            font-size: 24px;
+            background-size: cover;
+        }
+        .parallax {
+            text-align: center;
+            padding: 150px;
+            background: transparent;
+        }
+        .parallax1 {
+            text-align: center;
+            padding: calc(var(--window-height) / 2) 0px;
+            background: transparent;
+            max-height: 100%;
+        }
+        .footerparagraph {
+            text-align: center;
+            color: #111111;
+            font-family: 'Source Code Pro', monospace;
+        }
+        #logo {
+            float: left;
+            max-width: 40px;
+            max-height: 40px;
+            padding: 10px 20px;
+        }
+        h1 {
+            z-index: 2;
+            position: relative;
+            color: #ffffff;
+            font-size: 64px;
+            font-family: 'Bebas Neue', cursive;
+        }
+        h2 {
+            z-index: 2;
+            position: relative;
+            color: steelblue;
+            font-size: 48px;
+            padding: 20px 175px;
+            font-family: 'Bebas Neue', cursive;
+        }
+        h3 {
+            z-index: 2;
+            position: relative;
+            color: #000000;
+            font-size: 32px;
+            padding: 20px 175px;
+            font-family: 'Ubuntu', sans-serif;
+        }
+        .navbar {
+            position: fixed;
+            z-index: 3;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            font-size: 28px;
+            width: 100%;
+            background: transparent;
+            overflow: hidden;
+            background-color: #153D61;
+        }
+        .navbar1 {
+            float: left;
+            text-align: center;
+        }
+        .navbar1 a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-family: 'Bebas Neue', cursive;
+        }
+        p {
+            padding: 20px 175px;
+            font-family: 'Roboto', sans-serif;
+            color: #444444;
+        }
+        footer {
+            background-color: lightblue;
+            padding-bottom: 25px;
+        }       
+        iframe {
+            padding: 35px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        ul {
+            list-style-type: disc;
+            padding: 0px 225px;
+            font-family: 'Roboto', sans-serif;
+            color: #444444;
+        }
+        .contents {
+            list-style-type: disc;
+            padding: 0px 225px;
+            font-family: 'Roboto', sans-serif;
+            color: #444444;
+            padding-bottom: 20px;
+        }
+        img {
+            padding-bottom: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        @media only screen and (max-width: 1000px) {
+            p {
+                padding: 25px;
+            }
+            h1 {
+                padding: 25px;
+            }
+            h2 {
+                padding: 25px;
+            }
+            h3 {
+                padding: 25px;
+            }
+            ul {
+                padding: 0px 50px;
+            }
+            .contents {
+                padding: 0px 50px;
+            }
+            .parallax {
+                padding: 50px;
+            }
+            img {
+                padding: 50px;
+            }
+        }
+        @media only screen and (max-width: 630px) {
+            iframe {
+                width: 400px;
+                height: 225px;
+            }
+        }
+        @media only screen and (min-width: 1200px) {
+            iframe {
+                width: 800px;
+                height: 540px;
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        /*!
+        * parallax.js v1.5.0 (http://pixelcog.github.io/parallax.js/)
+        * @copyright 2016 PixelCog, Inc.
+        * @license MIT (https://github.com/pixelcog/parallax.js/blob/master/LICENSE)
+        */
+        !function(t,i,e,s){function o(i,e){var h=this;"object"==typeof e&&(delete e.refresh,delete e.render,t.extend(this,e)),this.$element=t(i),!this.imageSrc&&this.$element.is("img")&&(this.imageSrc=this.$element.attr("src"));var r=(this.position+"").toLowerCase().match(/\S+/g)||[];if(r.length<1&&r.push("center"),1==r.length&&r.push(r[0]),"top"!=r[0]&&"bottom"!=r[0]&&"left"!=r[1]&&"right"!=r[1]||(r=[r[1],r[0]]),this.positionX!==s&&(r[0]=this.positionX.toLowerCase()),this.positionY!==s&&(r[1]=this.positionY.toLowerCase()),h.positionX=r[0],h.positionY=r[1],"left"!=this.positionX&&"right"!=this.positionX&&(isNaN(parseInt(this.positionX))?this.positionX="center":this.positionX=parseInt(this.positionX)),"top"!=this.positionY&&"bottom"!=this.positionY&&(isNaN(parseInt(this.positionY))?this.positionY="center":this.positionY=parseInt(this.positionY)),this.position=this.positionX+(isNaN(this.positionX)?"":"px")+" "+this.positionY+(isNaN(this.positionY)?"":"px"),navigator.userAgent.match(/(iPod|iPhone|iPad)/))return this.imageSrc&&this.iosFix&&!this.$element.is("img")&&this.$element.css({backgroundImage:"url("+this.imageSrc+")",backgroundSize:"cover",backgroundPosition:this.position}),this;if(navigator.userAgent.match(/(Android)/))return this.imageSrc&&this.androidFix&&!this.$element.is("img")&&this.$element.css({backgroundImage:"url("+this.imageSrc+")",backgroundSize:"cover",backgroundPosition:this.position}),this;this.$mirror=t("<div />").prependTo(this.mirrorContainer);var a=this.$element.find(">.parallax-slider"),n=!1;0==a.length?this.$slider=t("<img />").prependTo(this.$mirror):(this.$slider=a.prependTo(this.$mirror),n=!0),this.$mirror.addClass("parallax-mirror").css({visibility:"hidden",zIndex:this.zIndex,position:"fixed",top:0,left:0,overflow:"hidden"}),this.$slider.addClass("parallax-slider").one("load",function(){h.naturalHeight&&h.naturalWidth||(h.naturalHeight=this.naturalHeight||this.height||1,h.naturalWidth=this.naturalWidth||this.width||1),h.aspectRatio=h.naturalWidth/h.naturalHeight,o.isSetup||o.setup(),o.sliders.push(h),o.isFresh=!1,o.requestRender()}),n||(this.$slider[0].src=this.imageSrc),(this.naturalHeight&&this.naturalWidth||this.$slider[0].complete||a.length>0)&&this.$slider.trigger("load")}!function(){for(var t=0,e=["ms","moz","webkit","o"],s=0;s<e.length&&!i.requestAnimationFrame;++s)i.requestAnimationFrame=i[e[s]+"RequestAnimationFrame"],i.cancelAnimationFrame=i[e[s]+"CancelAnimationFrame"]||i[e[s]+"CancelRequestAnimationFrame"];i.requestAnimationFrame||(i.requestAnimationFrame=function(e){var s=(new Date).getTime(),o=Math.max(0,16-(s-t)),h=i.setTimeout(function(){e(s+o)},o);return t=s+o,h}),i.cancelAnimationFrame||(i.cancelAnimationFrame=function(t){clearTimeout(t)})}(),t.extend(o.prototype,{speed:.2,bleed:0,zIndex:-100,iosFix:!0,androidFix:!0,position:"center",overScrollFix:!1,mirrorContainer:"body",refresh:function(){this.boxWidth=this.$element.outerWidth(),this.boxHeight=this.$element.outerHeight()+2*this.bleed,this.boxOffsetTop=this.$element.offset().top-this.bleed,this.boxOffsetLeft=this.$element.offset().left,this.boxOffsetBottom=this.boxOffsetTop+this.boxHeight;var t,i=o.winHeight,e=o.docHeight,s=Math.min(this.boxOffsetTop,e-i),h=Math.max(this.boxOffsetTop+this.boxHeight-i,0),r=this.boxHeight+(s-h)*(1-this.speed)|0,a=(this.boxOffsetTop-s)*(1-this.speed)|0;r*this.aspectRatio>=this.boxWidth?(this.imageWidth=r*this.aspectRatio|0,this.imageHeight=r,this.offsetBaseTop=a,t=this.imageWidth-this.boxWidth,"left"==this.positionX?this.offsetLeft=0:"right"==this.positionX?this.offsetLeft=-t:isNaN(this.positionX)?this.offsetLeft=-t/2|0:this.offsetLeft=Math.max(this.positionX,-t)):(this.imageWidth=this.boxWidth,this.imageHeight=this.boxWidth/this.aspectRatio|0,this.offsetLeft=0,t=this.imageHeight-r,"top"==this.positionY?this.offsetBaseTop=a:"bottom"==this.positionY?this.offsetBaseTop=a-t:isNaN(this.positionY)?this.offsetBaseTop=a-t/2|0:this.offsetBaseTop=a+Math.max(this.positionY,-t))},render:function(){var t=o.scrollTop,i=o.scrollLeft,e=this.overScrollFix?o.overScroll:0,s=t+o.winHeight;this.boxOffsetBottom>t&&this.boxOffsetTop<=s?(this.visibility="visible",this.mirrorTop=this.boxOffsetTop-t,this.mirrorLeft=this.boxOffsetLeft-i,this.offsetTop=this.offsetBaseTop-this.mirrorTop*(1-this.speed)):this.visibility="hidden",this.$mirror.css({transform:"translate3d("+this.mirrorLeft+"px, "+(this.mirrorTop-e)+"px, 0px)",visibility:this.visibility,height:this.boxHeight,width:this.boxWidth}),this.$slider.css({transform:"translate3d("+this.offsetLeft+"px, "+this.offsetTop+"px, 0px)",position:"absolute",height:this.imageHeight,width:this.imageWidth,maxWidth:"none"})}}),t.extend(o,{scrollTop:0,scrollLeft:0,winHeight:0,winWidth:0,docHeight:1<<30,docWidth:1<<30,sliders:[],isReady:!1,isFresh:!1,isBusy:!1,setup:function(){function s(){if(p==i.pageYOffset)return i.requestAnimationFrame(s),!1;p=i.pageYOffset,h.render(),i.requestAnimationFrame(s)}if(!this.isReady){var h=this,r=t(e),a=t(i),n=function(){o.winHeight=a.height(),o.winWidth=a.width(),o.docHeight=r.height(),o.docWidth=r.width()},l=function(){var t=a.scrollTop(),i=o.docHeight-o.winHeight,e=o.docWidth-o.winWidth;o.scrollTop=Math.max(0,Math.min(i,t)),o.scrollLeft=Math.max(0,Math.min(e,a.scrollLeft())),o.overScroll=Math.max(t-i,Math.min(t,0))};a.on("resize.px.parallax load.px.parallax",function(){n(),h.refresh(),o.isFresh=!1,o.requestRender()}).on("scroll.px.parallax load.px.parallax",function(){l(),o.requestRender()}),n(),l(),this.isReady=!0;var p=-1;s()}},configure:function(i){"object"==typeof i&&(delete i.refresh,delete i.render,t.extend(this.prototype,i))},refresh:function(){t.each(this.sliders,function(){this.refresh()}),this.isFresh=!0},render:function(){this.isFresh||this.refresh(),t.each(this.sliders,function(){this.render()})},requestRender:function(){var t=this;t.render(),t.isBusy=!1},destroy:function(e){var s,h=t(e).data("px.parallax");for(h.$mirror.remove(),s=0;s<this.sliders.length;s+=1)this.sliders[s]==h&&this.sliders.splice(s,1);t(e).data("px.parallax",!1),0===this.sliders.length&&(t(i).off("scroll.px.parallax resize.px.parallax load.px.parallax"),this.isReady=!1,o.isSetup=!1)}});var h=t.fn.parallax;t.fn.parallax=function(s){return this.each(function(){var h=t(this),r="object"==typeof s&&s;this==i||this==e||h.is("body")?o.configure(r):h.data("px.parallax")?"object"==typeof s&&t.extend(h.data("px.parallax"),r):(r=t.extend({},h.data(),r),h.data("px.parallax",new o(this,r))),"string"==typeof s&&("destroy"==s?o.destroy(this):o[s]())})},t.fn.parallax.Constructor=o,t.fn.parallax.noConflict=function(){return t.fn.parallax=h,this},t(function(){t('[data-parallax="scroll"]').parallax()})}(jQuery,window,document);
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+    <ul class="navbar">
+        <li class="navbar1"><img src="images/logo.png" id="logo"/></li>
+        <li class="navbar1"><a href="AI_and_Robotics_main.htm">CYBORG AI</a></li>
+    </ul>
+    <div class="parallax1" data-parallax="scroll" data-z-index="1" data-image-src="images/robot cover page.gif">
+            <h1 id="tablecenterchild">Artificial Intelligence - Empowering the Future</h1>
+    </div>
+    <div class="container">
+        <h2>Table of Contents</h2>
+        <ul class="contents">
+            <li><a href="#What is AI?">What is Artificial Intelligence?</a></li>
+            <li><a href="#Machine Learning">Machine Learning</a></li>
+            <li><a href="#Making Decisions">Making Decisions</a></li>
+            <li><a href="#Sensors and AI">Sensors and AI</a></li>
+            <li><a href="#Industrial Robots">Industrial Robots</a></li>
+            <li><a href="#Androids">Androids</a></li>
+            <li><a href="#How do Androids use AI Technologies?">How do Androids use AI Technologies?</a></li>
+            <li><a href="#Internet of Things (IoT)">Internet of Things (IoT)</a></li>
+            <li><a href="#AI and Business">AI and Business</a></li>
+            <li><a id="What is AI?" href="#Robotics in Agriculture">Robotics in Agriculture</a></li>
+        </ul>
+        <h2>What is Artificial Intelligence?</h2>
+        <p>Artificial intelligence, also abbreviated as AI, is a form of technology that allows machines (such as robots and computers) to process things the way humans would. For example, regular machines require humans to dictate them (such as RC cars and computers). However, with AI, we allow machines to make decisions on their own. There are three different artificial intelligence processes - learning, reasoning and self-correction.</p>
+        <p>Watch the video below to learn more!</p>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/2ePf9rue1Ao" frameborder="0" align="middle" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <a id="Machine Learning"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Machine Learning</h1>
+        </div></a>
+    <div class="container">
+        <p>Machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed. Machine learning focuses on the development of computer programs that can access data and use it learn for themselves.</p>
+        <p>The process of learning begins with observations or data, such as examples, direct experience, or instruction, in order to look for patterns in data and make better decisions in the future based on the examples that we provide. The primary aim is to allow the computers learn automatically without human intervention or assistance and adjust actions accordingly.</p>
+        <p>In other words, machine learning requires machines to be trained on various data. All of this data must be different. If the data is all the same, the computer wouldn't be able to recognize different types of user input.</p>
+        <p>Machine learning on modern computers is commonly referred to as <b>deep learning.</b> If you would like to learn more about machine learning, <a href="https://towardsdatascience.com/top-10-best-deep-learning-frameworks-in-2019-5ccb90ea6de">click here!</a></p>
+    </div>
+    <a id="Making Decisions"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Making Decisions</h1>
+        </div></a>
+    <div class="container">
+        <h2>What is Artificial Reasoning?</h2>
+        <p>As the name suggests, artificial reasoning is the way that computers are given the ability to make their own decisions. Many things are required to allow a computer to make its own decisions. These include lots of data, lots of code, and various input. </p>
+        <h3>Code</h3>
+        <p>On their own, computers aren't very smart machines. They are designed to take in user input, and give the desired output. Behind the scenes, computers are programmed to do this. For computers to be able to make decisions on their own, lots of code is required to give them a way to perform. But, computers won't be able to make decisions on their own unless some data is given, which is described below. </p>
+        <h3>Data</h3>
+        <p>In the previous section (machine learning), various applications of machine learning were described, such as Google Assistant and Siri. These programs wouldn't be able to do many things without data. For example, if these programs weren't trained with audio data, they wouldn't be able to recognize what the user is saying. They also wouldn't be able to follow voice commands, such as Siri sending a text when you tell it to. </p>
+        <h3>Input</h3>
+        <p>Many, if not all programs require user input. In terms of AI, this input can be many different types of data such as text, audio, or even images. Based on the data that the program or robot has been trained on, it will process the input and give the desired output. Sometimes, user input can be added to the program's data, and it could train and adjust in case they don't give the correct output. </p>
+    </div>
+    <a id="Sensors and AI"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Sensors and AI</h1>
+        </div></a>
+    <div class="container">
+        <h2>Why are sensors required in robots and AI?</h2>
+        <p>There are many reasons that sensors are required in AI. One reason that we need sensors when robots are developed is so that robots can detect changes in their environment, and react to them accordingly. If robots don't have any sensors (such as a camera sensor or a temperature sensor), and something was to happen that could potentially cause a problem (such as an object in front of a mobile robot that could trip it over), it wouldn't be able to adjust to counter it, and a problem could occur. Secondly, some robots need sensors to perform their desired task. For example, a machine that was designed with a function to record a temperature every time it detects a major change in temperature will need a temperature sensor to make its readings.</p>
+    </div>
+    <a id="Industrial Robots"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Industrial Robots</h1>
+        </div></a>
+    <div class="container">
+        <h2>What are industrial robots?</h2>
+        <p>As the name suggests, industrial robots are machines that aid work in factories. </p>
+        <h2>Which industries require robots?</h2>
+        <p>Not all industries require robots, but there are many different cases where they would be useful and aid the efficiency of work. They could be used in the following industries:</p>
+        <h3>Food Industry</h3>
+        <p>In the food industry, the main use for industrial robots is to help package food and prepare it for export. </p>
+        <h3>Pharmaceutical Industry</h3>
+        <p>In the pharmaceutical industry, robots and machines can be used to fill bottles of medications and pills quickly and efficiently. </p>
+        <h3>Electronics Industry and the Industrial Goods Sector</h3>
+        <p>There are many ways that industrial robots can be utilized in the electronics industry and the industrial goods sector. Firstly, industrial robots can be used in the electronics industry to do things such as cut and solder parts onto printed circuit boards, as well as manufacturing semiconductors and computer parts.</p> 
+        <p>In the industrial goods sector, there are just as many uses for industrial robots. One of the greatest uses for industrial robots is to cut metal. They can also be used to weld metals together, as well as cut steel and handle glass. They can also be use to forge metal through compression. </p>
+        <h2>Different Types of Industrial Robots</h2>
+        <p>There are six main types of industrial robots - articulated robots, Cartesian robots, SCARA robots, delta robots, polar robots, and cylindrical robots. The different types are described briefly below. </p>
+        <h3>Articulated Robots</h3>
+        <p>According to Google, the definition of the word "articulated" is "having two or more sections connected by a flexible joint." This is exactly what an articulated robot is. This formation closely resembles a human arm. Articulated robots have a high speed, can be very compact, and it is very easy for them to elevate and descend. However, it requires complex programming and science, and specific hardware to function properly (such as its own robot controller). Below is a picture of an articulated robot. </p>
+        <img src="images/articulated%20robot.jpg" alt="The image could not be displayed.">
+        <h3>Cartesian Robots</h3>
+        <p>When you hear the word "Cartesian," the first thing that probably comes to your mind is the Cartesian plane. This is essentially how a Cartesian robot works. They can move along three perpendicular axes (the X, Y and Z axes). They are very precise, easy to operate, cost-effective, customizable, can handle heavy loads, and they are easier to program. However, they are limited to moving in one direction at a time, take up a lot of space, and they are harder to assemble. Images of Cartesian robots are below. </p>
+        <img src="images/cartesian%20robot.png" alt="The image could not be displayed.">
+        <h3>SCARA Robots</h3>
+        <p>SCARA stands for "Selective Compliance Assembly Robot Arm." They have a circular workspace and they have two parallel joints and a rotary arm. They have high speed and a large workspace, and they repeat things with high accuracy. The main downside to SCARA robots are that they are limited to only 2 dimensions, and they require their own robot controller. </p>
+        <img src="images/scara%20robot.jpg" alt="The image could not be displayed.">
+        <h3>Delta Robots</h3>
+        <p>Delta robots are robots that are made of many joints linked to one base. They have very high speed and accuracy, but they are complicated to operate and require their own controller.</p>
+        <img src="images/delta%20robot.jpg" alt="The image could not be displayed.">
+        <h3>Polar and Cylindrical Robots</h3>
+        <p>Polar and cylindrical robots are both very similar. Both of these robots have a twisting joint that connects the arm with the base and it has joints connecting the arms to a gripper. These robots can move all around, can navigate around obstacles, and require less work space. Although, their movement is limited to their height, have low accuracy, and they have a short vertical axis. </p>
+        <img src="images/polar%20robot.png" alt="The image could not be displayed.">
+    </div>
+    <a id="Androids"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Androids</h1>
+        </div></a>
+    <div class="container">
+        <h2>What are Androids?</h2>
+        <p>When I talk about androids, I am not referring to Google's mobile operating system. I am talking about the humanoid robots that are designed to mimic human behaviour and looks. Lots of science and code are required to make androids work. They were previously just a though of science fiction, but with advancing technology, they have been made a reality. </p>
+        <h2>What are some of the technologies that are required to create androids?</h2>
+        <p>Firstly, android require extensive research and programming experience. Some of the technologies that are use in android are motors, sensors, actuators, and microcontrollers/processors. Of course, motors are required to allow the android to move around. In every android robot, there are many sensors that makes the robot more aware of its surroundings. </p>
+        <p>Quite a few distance sensors are required to tell the robot what's around it. These sensors typically use light or ultrasound, and the sensors can calculate distance based on the reflection of light or sound. Actuators are required to give the robot the ability to make more human-like gestures. Microcontrollers control everything inside the robot; it's where all of the code is stored. Upon certain conditions, the microcontroller will give an output or a signal for the robot to commit to an action. </p>
+    </div>
+    <a id="How do Androids use AI Technologies?"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>How do Androids use AI Technologies?</h1>
+        </div></a>
+    <div class="container">
+        <p>Artificial intelligence in robotics is a developing technology. The idea behind it seems surprisingly straight-forward, yet executing it is much more complex. The idea is this:</p>
+        <ul style="list-style-type:disc;">
+			<li>First, the robot will collect input from its sensors and human input from a certain situation.</li>
+			<li>Then, it will compare this new input to information it already knows and figure out what it means.</li>
+			<li>Finally, it will process this information and decide what to do next.</li>
+		</ul>	
+        <p>Seems simple, right? Not exactly. As mentioned earlier, AI is still a developing field. Although we have already developed ways to make machines and robots learn, and a few androids can even detect human emotions and interact socially, there isn't a model for us to work with. To develop artificial intelligence, we have to figure out how natural intelligence works before we implement it in robots. Some sources (such as this website) believe that, similar to the technology of computers, androids will gradually transition from the industrial world and become part of daily life! </p>
+    </div>
+    <a id="Internet of Things (IoT)"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Internet of Things (IoT)</h1>
+        </div></a>
+    <div class="container">
+        <h2>What is the Internet of Things?</h2>
+        <p>The Internet of Things (IoT, for short) is the network of things connected to the internet, or the devices that require the internet to perform their tasks. However, this isn't limited to just computers, consoles and mobile devices. IoT is more focused on smart devices that are connected to the internet, such as smart speakers, smart home systems, and robots. </p>
+        <h2>How do robots use the Internet of Things?</h2>
+        <p>There are many ways that robots can benefit from the use of the internet. Firstly, robots can store data to cloud servers. For example, they can store all of the input in the cloud, which can help the robot run more efficiently. It can also help them communicate. For example, robots could send emails or even text messages through the help of the internet and data. Machine learning frameworks run by robots can also benefit from the use of the internet. For example, if a programmer wanted to download data from the internet to train the robot, it would be much simpler if the robot is connected to the Internet of Things. The robot can also train any machine learning models in cloud servers to make the robot run more efficiently. </p>
+    </div>
+    <a id="AI and Business"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>AI and Business</h1>
+        </div></a>
+    <div class="container">
+        <h2>How can AI be useful for businesses?</h2>
+        <p>Have you ever visited the website of a company or an organization, and saw a chatbot or a live chat option in the bottom right corner? Chances are, you have. This is one of the most common examples of how AI can be used for telemarketing. Chatbots have also been developed to have conversations with people. When they are programmed correctly, they can be very useful for companies, as they can solve common problems that consumers have, as well as notify the company about arising ones. </p>
+        <h2>How can AI interfere with telemarketing?</h2>
+        <p>On the end of the consumer, telemarketers can be a pain. People commonly receive calls from telemarketers trying to advertise something they aren't interested in, or even try to scam them. To combat this, chatbots have been developed that talk to telemarketers. For example, a company called the Jolly Roger Telephone Company developed a chatbot that can combat telemarketers and scammers. Using an AI framework by IBM, they managed to create a realistic bot that frustrates both telemarketers and scammers. They have even been on the NBC Today Show, due to their work!</p>
+    </div>
+    <a id="Robotics in Agriculture"><div class="parallax" data-parallax="scroll" data-z-index="1" data-image-src="images/circuit_board.jpg">
+        <h1>Robotics in Agriculture</h1>
+        </div></a>
+    <div class="container">
+        <h2>What is an Agricultural Robot?</h2>
+        <p>It probably isn't too hard to figure out that an agricultural robot is a robot used for an agricultural purpose. One use of robots in this industry is to disperse liquids onto plants. These liquids could be weed killers (pesticides and herbicides), or water. Robots could also be used to harvest crops, as well as monitoring the environment and analyze the soil to ensure that the crops have optimal growing conditions. What this can do is reduce farming costs, and possibly increase the quality of produce. </p>
+        <h2>What are some types of Agricultural Robots?</h2>
+        <p>There are many types of agricultural robots, all meant to replace human labour. These include driverless tractors and sprayers for crops, and sheep-shearing robots and milking robots for livestock. When conditions become too dangerous for human operation, these automated farming machines can do the task without risking a life. As any other automated system, many things must be considered, such as the robots adjusting to the type of crop that it needs to pick. </p>
+        <h2>What does an Agricultural Robot look like?</h2>
+        <p>Two agricultural robots are shown below. The one on the left is a drone that monitors a farm, while the one on the right can assist in weeding and harvesting.</p>
+        <img src="images/agricultural robot.jpg" alt="The image could not be displayed.">
+    </div>
+    </div>
+</body>
+<footer>
+    <p class="footerparagraph">Website created by Sanjay Ramnauth, from class 8A</p>
+    <p class="footerparagraph">Last modified January 14th, 2020.</p>
+    <p class="footerparagraph">I hope you like my website!</p>
+</footer>    
+</html>
